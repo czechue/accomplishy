@@ -1,4 +1,4 @@
-import { DailyRoute, WeeklyDayRoute } from "../../model";
+import { WeeklyDayRoute } from "../../model";
 import React from "react";
 import {
     Button,

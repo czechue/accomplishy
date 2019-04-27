@@ -32,7 +32,7 @@ interface MonthName {
 }
 
 export interface DailyRoute {
-    diet: string | '';
+    diet: string | "";
     gym: boolean;
     running: boolean;
 }
@@ -96,50 +96,50 @@ export const treningDetails: TreningDetails = {
     dayNames,
     monthNames,
     day: {
-        diet: '1234',
+        diet: "1234",
         gym: true,
         running: false,
     },
     week: {
         0: {
             dayNameId: 0,
-            diet: '',
+            diet: "",
             gym: false,
             running: false,
         },
         1: {
             dayNameId: 1,
-            diet: '',
+            diet: "",
             gym: false,
             running: true,
         },
         2: {
             dayNameId: 2,
-            diet: '',
+            diet: "",
             gym: false,
             running: false,
         },
         3: {
             dayNameId: 3,
-            diet: '',
+            diet: "",
             gym: true,
             running: false,
         },
         4: {
             dayNameId: 4,
-            diet: '',
+            diet: "",
             gym: false,
             running: false,
         },
         5: {
             dayNameId: 5,
-            diet: '',
+            diet: "",
             gym: false,
             running: false,
         },
         6: {
             dayNameId: 6,
-            diet: '',
+            diet: "",
             gym: false,
             running: false,
         },
@@ -148,16 +148,114 @@ export const treningDetails: TreningDetails = {
         0: {
             dayNameId: 3,
             monthDayId: 23,
-            diet: '',
+            diet: "",
             gym: false,
             running: false,
         },
         1: {
             dayNameId: 4,
             monthDayId: 24,
-            diet: '',
+            diet: "",
             gym: false,
             running: false,
         },
+        2: {
+            dayNameId: 5,
+            monthDayId: 25,
+            diet: "",
+            gym: false,
+            running: false,
+        },
+        3: {
+            dayNameId: 6,
+            monthDayId: 26,
+            diet: "",
+            gym: false,
+            running: false,
+        },
+        4: {
+            dayNameId: 0,
+            monthDayId: 27,
+            diet: "",
+            gym: false,
+            running: false,
+        },
+        5: {
+            dayNameId: 1,
+            monthDayId: 28,
+            diet: "",
+            gym: false,
+            running: false,
+        },
+        6: {
+            dayNameId: 2,
+            monthDayId: 29,
+            diet: "",
+            gym: false,
+            running: false,
+        },
+        7: {
+            dayNameId: 3,
+            monthDayId: 30,
+            diet: "",
+            gym: false,
+            running: false,
+        },
+	    8: {
+		    dayNameId: 4,
+		    monthDayId: 1,
+		    diet: "",
+		    gym: false,
+		    running: false,
+	    },
+	    9: {
+		    dayNameId: 5,
+		    monthDayId: 2,
+		    diet: "",
+		    gym: false,
+		    running: false,
+	    },
+	    10: {
+		    dayNameId: 6,
+		    monthDayId: 3,
+		    diet: "",
+		    gym: false,
+		    running: false,
+	    },
+	    11: {
+		    dayNameId: 0,
+		    monthDayId: 4,
+		    diet: "",
+		    gym: false,
+		    running: false,
+	    },
+	    12: {
+		    dayNameId: 1,
+		    monthDayId: 5,
+		    diet: "",
+		    gym: false,
+		    running: false,
+	    },
+	    13: {
+		    dayNameId: 2,
+		    monthDayId: 6,
+		    diet: "",
+		    gym: false,
+		    running: false,
+	    },
+	    14: {
+		    dayNameId: 3,
+		    monthDayId: 7,
+		    diet: "",
+		    gym: false,
+		    running: false,
+	    },
+	    15: {
+		    dayNameId: 4,
+		    monthDayId: 8,
+		    diet: "",
+		    gym: false,
+		    running: false,
+	    },
     },
 };

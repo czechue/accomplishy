@@ -1,15 +1,11 @@
-import {WeeklyDayRoute, WeeklyRouteEntity} from "../../model";
+import { WeeklyDayRoute, WeeklyRouteEntity } from "../../model";
 import React, { useState } from "react";
 import {
     Button,
-    Card,
-    CardContent,
-    CardDescription,
     CardGroup,
-    CardHeader,
 } from "semantic-ui-react";
-import { getDayNameById } from "../../../../shared/utils/getDayNameById";
-import {TypicalDay} from "../TypicalDay/TypicalDay";
+import { TypicalDay } from "../TypicalDay/TypicalDay";
+import { CalendarDayTile } from "../CalendarDayTile/CalednarDayTile";
 
 interface TypicalWeekProps {
     week: WeeklyRouteEntity;
@@ -17,7 +13,7 @@ interface TypicalWeekProps {
 export const TypicalWeek: React.FC<TypicalWeekProps> = ({ week }) => {
     const weekArr = Object.values(week);
     const [activeDayId, setActiveDayId] = useState<number>(1);
-	const activeDay: WeeklyDayRoute = week[activeDayId];
+    const activeDay: WeeklyDayRoute = week[activeDayId];
 
     return (
         <React.Fragment>
@@ -28,28 +24,19 @@ export const TypicalWeek: React.FC<TypicalWeekProps> = ({ week }) => {
                         diet = "",
                         gym = false,
                         running = false,
-                    }) => (
-                        <Card
-                            key={dayNameId}
-                            onClick={() => setActiveDayId(dayNameId)}
-                        >
-                            <CardHeader>{getDayNameById(dayNameId)}</CardHeader>
-                            <CardContent>
-                                <CardDescription>
-                                    {diet && "Diet"}
-                                </CardDescription>
-                                <CardDescription>
-                                    {gym && "Gym"}
-                                </CardDescription>
-                                <CardDescription>
-                                    {running && "Running"}
-                                </CardDescription>
-                            </CardContent>
-                        </Card>
-                    ),
+                    }) => {
+                        const calendarDayTileProps = {
+                            dayNameId,
+                            diet,
+                            gym,
+                            running,
+                            onClick: () => setActiveDayId(dayNameId),
+                        };
+                        return <CalendarDayTile props={calendarDayTileProps} />;
+                    },
                 )}
             </CardGroup>
-	        <TypicalDay day={activeDay}/>
+            <TypicalDay day={activeDay} />
 
             <Button primary>Save your changes</Button>
         </React.Fragment>
