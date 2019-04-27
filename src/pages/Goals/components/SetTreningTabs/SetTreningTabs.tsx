@@ -14,157 +14,25 @@ import {
 } from "semantic-ui-react";
 import React, { useState } from "react";
 import { PanelGridRow } from "../../../../components/PanelGridRow/PanelGridRow";
+import { DailyRoute, WeeklyRouteEntity, AllDayRouteEntity } from "../../model";
+import { getDayNameById } from "../../../../shared/utils/getDayNameById";
 
-type Day =
-    | "monday"
-    | "tuesday"
-    | "wednesday"
-    | "thursday"
-    | "friday"
-    | "saturday"
-    | "sunday";
-type Month =
-    | "Jan"
-    | "Feb"
-    | "Mar"
-    | "Apr"
-    | "May"
-    | "Jun"
-    | "Jul"
-    | "Aug"
-    | "Sep"
-    | "Oct"
-    | "Nov"
-    | "Dec";
-interface DayName {
-	[key: string]: Day;
+interface TreningParams {
+    day: DailyRoute;
+    week: WeeklyRouteEntity;
+    allDays: AllDayRouteEntity;
 }
-interface MonthName {
-	[key: string]: Month;
+interface Props {
+    treningParams: TreningParams;
 }
-interface Route {
-    dayNameId?: number;
-    monthDayId?: number;
-    diet: number | null;
-    gym: boolean;
-    running: boolean;
-}
-interface MonthDayRoute {
-    [key: string]: Route;
-}
-
-interface TreningDetails {
-    daysDuration: number | null;
-    startAt: string;
-    endsAt: string;
-    dayNames: DayName;
-    monthNames: MonthName;
-    day: Route;
-    week: MonthDayRoute;
-    all: MonthDayRoute;
-}
-
-const treningDetails: TreningDetails = {
-    daysDuration: 30,
-    startAt: "",
-    endsAt: "",
-    dayNames: {
-        1: "monday",
-        2: "tuesday",
-        3: "wednesday",
-        4: "thursday",
-        5: "friday",
-        6: "saturday",
-        7: "sunday",
-    },
-    monthNames: {
-        1: "Jan",
-        2: "Feb",
-        3: "Mar",
-        4: "Apr",
-        5: "May",
-        6: "Jun",
-        7: "Jul",
-        8: "Aug",
-        9: "Sep",
-        10: "Oct",
-        11: "Nov",
-        12: "Dec",
-    },
-    day: {
-        diet: null,
-        gym: false,
-        running: false,
-    },
-    week: {
-        1: {
-            dayNameId: 1,
-            diet: null,
-            gym: false,
-            running: false,
-        },
-        2: {
-            dayNameId: 2,
-            diet: null,
-            gym: false,
-            running: false,
-        },
-        3: {
-            dayNameId: 3,
-            diet: null,
-            gym: false,
-            running: false,
-        },
-        4: {
-            dayNameId: 4,
-            diet: null,
-            gym: false,
-            running: false,
-        },
-        5: {
-            dayNameId: 5,
-            diet: null,
-            gym: false,
-            running: false,
-        },
-        6: {
-            dayNameId: 6,
-            diet: null,
-            gym: false,
-            running: false,
-        },
-        7: {
-            dayNameId: 7,
-            diet: null,
-            gym: false,
-            running: false,
-        },
-    },
-    all: {
-        1: {
-            dayNameId: 3,
-            monthDayId: 23,
-            diet: null,
-            gym: false,
-            running: false,
-        },
-	    2: {
-		    dayNameId: 4,
-		    monthDayId: 24,
-		    diet: null,
-		    gym: false,
-		    running: false,
-	    },
-    },
-};
-
-export const SetTreningTabs = () => {
+export const SetTreningTabs: React.FC<Props> = ({ treningParams }) => {
+    const { day, week, allDays } = treningParams;
     const panes = [
         {
             menuItem: "Typical day",
             render: () => (
                 <Tab.Pane>
-                    <TypicalDay />
+                    <TypicalDay day={day} />
                 </Tab.Pane>
             ),
         },
@@ -172,7 +40,7 @@ export const SetTreningTabs = () => {
             menuItem: "Typical week",
             render: () => (
                 <Tab.Pane>
-                    <TypicalWeek />
+                    <TypicalWeek week={week} />
                 </Tab.Pane>
             ),
         },
@@ -190,7 +58,11 @@ export const SetTreningTabs = () => {
     );
 };
 
-const TypicalDay = () => {
+interface TypicalDayProps {
+    day: DailyRoute;
+}
+export const TypicalDay: React.FC<TypicalDayProps> = ({ day }) => {
+    const { diet, gym, running } = day;
     return (
         <CardGroup itemsPerRow={1}>
             <Card>
@@ -200,15 +72,15 @@ const TypicalDay = () => {
                         <Grid>
                             <PanelGridRow
                                 leftColumn={<label>Calories limit:</label>}
-                                rightColumn={<Input />}
+                                rightColumn={<Input value={diet} />}
                             />
                             <PanelGridRow
                                 leftColumn={<label>Go to gym</label>}
-                                rightColumn={<Checkbox />}
+                                rightColumn={<Checkbox checked={gym} />}
                             />
                             <PanelGridRow
                                 leftColumn={<label>Running</label>}
-                                rightColumn={<Checkbox />}
+                                rightColumn={<Checkbox checked={running} />}
                             />
                         </Grid>
                     </CardDescription>
@@ -219,33 +91,44 @@ const TypicalDay = () => {
     );
 };
 
-const TypicalWeek = () => {
-    const weekDays = [
-        "monday",
-        "tuesday",
-        "wednesday",
-        "thursday",
-        "friday",
-        "saturday",
-        "sunday",
-    ];
-    const [activeDay, setActiveDay] = useState(weekDays[0]);
+interface TypicalWeekProps {
+    week: WeeklyRouteEntity;
+}
+const TypicalWeek: React.FC<TypicalWeekProps> = ({ week }) => {
+    const weekArr = Object.values(week);
+    const [activeDayId, setActiveDayId] = useState<number>(4);
 
     return (
         <React.Fragment>
             <CardGroup itemsPerRow={7}>
-                {weekDays.map(day => (
-                    <Card key={day} onClick={() => setActiveDay(day)}>
-                        <CardHeader>{day}</CardHeader>
-                        <CardContent>
-                            <CardDescription>Diet</CardDescription>
-                            <CardDescription>Gym</CardDescription>
-                            <CardDescription>Running</CardDescription>
-                        </CardContent>
-                    </Card>
-                ))}
+                {weekArr.map(
+                    ({
+                        dayNameId = 0,
+                        diet = "",
+                        gym = false,
+                        running = false,
+                    }) => (
+                        <Card
+                            key={dayNameId}
+                            onClick={() => setActiveDayId(dayNameId)}
+                        >
+                            <CardHeader>{getDayNameById(dayNameId)}</CardHeader>
+                            <CardContent>
+                                <CardDescription>
+                                    {diet && "Diet"}
+                                </CardDescription>
+                                <CardDescription>
+                                    {gym && "Gym"}
+                                </CardDescription>
+                                <CardDescription>
+                                    {running && "Running"}
+                                </CardDescription>
+                            </CardContent>
+                        </Card>
+                    ),
+                )}
             </CardGroup>
-            <pre>{activeDay}</pre>
+            <pre>{getDayNameById(activeDayId)}</pre>
 
             <Button primary>Save your changes</Button>
         </React.Fragment>
