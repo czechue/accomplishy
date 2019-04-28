@@ -1,34 +1,44 @@
-import { WeeklyDayRoute, WeeklyRouteEntity } from "../../model";
+import { AllDayRoute, AllDayRouteEntity, WeeklyDayRoute } from "../../model";
 import React, { useState } from "react";
 import { Button, CardGroup } from "semantic-ui-react";
-import { TypicalDay } from "../TypicalDay/TypicalDay";
 import { CalendarDayTile } from "../CalendarDayTile/CalednarDayTile";
+import { TypicalDay } from "../TypicalDay/TypicalDay";
+import {CalendarDayPlaceholder} from "../CalendarDayPlaceholder/CalendarDayPlaceholder";
 const uuidv4 = require("uuid/v4");
 
-interface TypicalWeekProps {
-    week: WeeklyRouteEntity;
+interface EntirePlanProps {
+    allDays: AllDayRouteEntity;
 }
-export const TypicalWeek: React.FC<TypicalWeekProps> = ({ week }) => {
-    const weekArr = Object.values(week);
+export const EntirePlan: React.FC<EntirePlanProps> = ({ allDays }) => {
+    const allDaysArr = Object.values(allDays);
     const [activeDayId, setActiveDayId] = useState<number>(1);
-    const activeDay: WeeklyDayRoute = week[activeDayId];
+    const activeDay: WeeklyDayRoute = allDays[activeDayId];
+    const firstDayOfTrening: AllDayRoute = allDays[0];
+    const placeholderCardsToShow: number = firstDayOfTrening.dayNameId!;
+    const placeholderArr = [...Array(placeholderCardsToShow)];
 
     return (
         <React.Fragment>
             <CardGroup itemsPerRow={7}>
-                {weekArr.map(
+                {placeholderArr.map((_, i) => (
+	                <CalendarDayPlaceholder key={i}/>
+                ))}
+                {allDaysArr.map(
                     ({
+                        id = 0,
+                        dayOfMonth = 0,
                         dayNameId = 0,
                         diet = "",
                         gym = false,
                         running = false,
                     }) => {
                         const calendarDayTileProps = {
+                            dayOfMonth,
                             dayNameId,
                             diet,
                             gym,
                             running,
-                            onClick: () => setActiveDayId(dayNameId),
+                            onClick: () => setActiveDayId(id),
                         };
                         return (
                             <CalendarDayTile
