@@ -1,35 +1,39 @@
 {
-  "name": "accomplishy",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "engines": {
-    "node": ">=11.0"
-  },
-  "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/czechue/accomplishy.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/czechue/accomplishy/issues"
-  },
-  "homepage": "https://github.com/czechue/accomplishy#readme",
-  "dependencies": {
-    "cookie-session": "^1.3.3",
-    "express": "^4.16.4",
-    "mongoose": "^5.5.5",
-    "nodemon": "^1.19.0",
-    "passport": "^0.4.0",
-    "passport-google-oauth20": "^2.0.0"
-  },
-  "prettier": {
-    "tabWidth": 4,
-    "trailingComma": "all"
-  }
+    "name": "accomplishy",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "engines": {
+        "node": ">=11.0"
+    },
+    "scripts": {
+        "start": "node index.js",
+        "server": "nodemon index.js",
+        "client": "npm run start --prefix client",
+        "dev": "concurrently \"npm run server\" \"npm run client\"",
+        "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/czechue/accomplishy.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/czechue/accomplishy/issues"
+    },
+    "homepage": "https://github.com/czechue/accomplishy#readme",
+    "dependencies": {
+        "concurrently": "^4.1.0",
+        "cookie-session": "^1.3.3",
+        "express": "^4.16.4",
+        "mongoose": "^5.5.5",
+        "nodemon": "^1.19.0",
+        "passport": "^0.4.0",
+        "passport-google-oauth20": "^2.0.0"
+    },
+    "prettier": {
+        "tabWidth": 4,
+        "trailingComma": "all"
+    }
 }
