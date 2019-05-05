@@ -12,3 +12,5 @@ export const PanelSubtitle: React.FC<Props> = ({ text }) => (
         </GridColumn>
     </GridRow>
 );
+
+
